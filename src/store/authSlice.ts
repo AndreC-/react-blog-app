@@ -3,7 +3,7 @@ import { Models } from "appwrite";
 
 interface state {
     status: boolean,
-    userData: Models.Document | null
+    userData: Models.User<Models.Preferences> | null
 }
 
 const initialState: state = {
@@ -16,11 +16,11 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            state.status = true,
+            state.status = true;
             state.userData = action.payload.userData
         },
         logout: (state) => {
-            state.status = false,
+            state.status = false;
             state.userData = null
         }
     }
