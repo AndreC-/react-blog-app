@@ -15,7 +15,7 @@ export default function Header() {
         {
             name: 'Home',
             slug: '/',
-            active: true
+            active: authStatus
         },
         {
             name: 'Login',
@@ -43,16 +43,16 @@ export default function Header() {
         <header className='py-3 shadow bg-blue-700 text-white'>
             <Container>
                 <nav className='flex'>
-                    <div className='mr-4'>
+                    <div className='mr-auto'>
                         <Link to='/'>
                             <Logo/>
                         </Link>
                     </div>
-                    <ul className='flex ml-auto w-full my-auto justify-end'>
+                    <ul className='m1-auto my-auto flex justify-end'>
                         {
                             navItems.map((item) => item.active ? (
                             <li key={item.name}>
-                                <button onClick={() => navigate(item.slug)} className='inline-block px-6 py-2 duration-200 hover:bg-blue-900 rounded-full'>
+                                <button onClick={() => navigate(item.slug)} className='inline-block px-4 py-2 duration-200 hover:bg-blue-900 rounded-full'>
                                     {item.name}
                                 </button>
                             </li>) : null)
