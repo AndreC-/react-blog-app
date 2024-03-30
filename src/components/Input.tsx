@@ -14,7 +14,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input({
     },
     ref: React.RefAttributes<HTMLInputElement>["ref"] ){
         const id = useId()
-        console.log(props)
         return (
             <div className="w-full">
                 <div className="flex">
