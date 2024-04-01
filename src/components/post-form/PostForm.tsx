@@ -29,14 +29,8 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
 
     const submit = async(data: postItem) => {
         if (post) {
-            console.log("-----------")
-            console.log(data)
-            console.log("---------------")
-            console.log(post)
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
-            console.log(file + "   efdskh sdlf")
             if (file){
-                console.log("deleting image")
                 appwriteService.deleteFile(post.featuredImage)
             }
             const dbPost = await appwriteService.updatePost(post.$id, {...data, featuredImage: file ? file.$id : post.featuredImage})
