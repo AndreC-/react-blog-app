@@ -61,7 +61,6 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
     }, [])
 
     useEffect(() => {
-        console.log(pathname)
         if (pathname == "/add-post"){
             watch((value, {name}) => {
                 if (name === "title"){
