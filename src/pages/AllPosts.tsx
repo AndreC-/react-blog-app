@@ -3,10 +3,13 @@ import appwriteService from "../appwrite/config"
 import Container from "../components/container/Container"
 import PostCard from "../components/PostCard"
 import { postItem } from "./Post"
+import { useSelector } from "react-redux"
+import { RootState } from "../store/store"
 
 export default function AllPosts(){
 
     const [posts, setPosts] = useState<postItem[]>()
+    const userData = useSelector((state: RootState) => state.auth.userData)
 
     useEffect(() => {
         appwriteService.getPosts([]).then((posts) => {
@@ -48,11 +51,16 @@ export default function AllPosts(){
             <Container>
                 <div className="flex flex-wrap">
                     {
-                        posts.map((post) => (
-                        <div className="p-2 md:w-1/3 lg:w-1/4" key={post.$id}>
-                            <PostCard {...post}/>
-                        </div>
-                        ))
+                        posts.map((post) => {
+                            const isAuthor = post && userData ? post.userId === userData.$id : false
+                            if (post.status === 'active' || isAuthor){
+                                return (
+                                    <div className="p-2 md:w-1/3 lg:w-1/4" key={post.$id}>
+                                        <PostCard {...post}/>
+                                    </div>
+                                )
+                            }
+                        })
                     }
                 </div>
             </Container>
