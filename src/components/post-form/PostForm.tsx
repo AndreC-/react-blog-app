@@ -27,6 +27,15 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
     const navigate = useNavigate()
     const userData = useSelector((state: RootState) => state.auth.userData)
 
+    useEffect(() => {
+        if(post){
+            setValue("title", post.title)
+            setValue("content", post.content)
+            setValue("status", post.status)
+            setValue("slug", post.$id)
+        }
+    }
+    , [setValue, post])
 
     const submit = async(data: postItem) => {
         if (post) {
@@ -68,21 +77,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 }
             })
         }
-        if(post){
-            setValue("content", post.content)
-        }
-    }, [watch, slugTransform, setValue, post, pathname])
-
-    useEffect(() => {
-        console.log(getValues("content"))
-        if(post){
-            setValue("title", post.title)
-            setValue("content", post.content)
-            setValue("status", post.status)
-            setValue("slug", post.$id)
-        }
-    }
-    , [setValue, getValues, post])
+    }, [watch, slugTransform, setValue, pathname])
 
     return (
         <form onSubmit={handleSubmit(submit)}

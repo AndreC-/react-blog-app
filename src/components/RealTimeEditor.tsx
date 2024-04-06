@@ -15,7 +15,7 @@ export default function RealTimeEditor({children, name, control, label, defaultV
             {children}
             </div>
             <Controller
-            name={name || 'content'}
+            name={name}
             control={control}
             rules={{maxLength: {value: 1000, message: "Max character limit reached"}, required: {value:true, message:"Content is required"}}}
             render={({field: {onChange}} ) => (
