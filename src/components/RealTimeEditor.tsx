@@ -4,7 +4,7 @@ import conf from "../conf/conf"
 import { postItem } from "../pages/Post"
 import { ReactNode } from "react"
 
-export default function RealTimeEditor({children, name, control, label, defaultValue =''}:{control: Control<postItem>, label: string, defaultValue: string, name:string, children: ReactNode}){
+export default function RealTimeEditor({children, name, control, label, defaultValue}:{control: Control<postItem>, label: string, defaultValue: string, name:string, children: ReactNode}){
     return (
         <div className="w-full">
             <div className="flex">
