@@ -26,17 +26,16 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
     const {pathname} = useLocation()
     const navigate = useNavigate()
     const userData = useSelector((state: RootState) => state.auth.userData)
-    const content = post?.content
 
     useEffect(() => {
         if(post){
             setValue("title", post.title)
-            setValue("content", content)
+            setValue("content", post.content)
             setValue("status", post.status)
             setValue("slug", post.$id)
         }
     }
-    , [setValue, post, content])
+    , [setValue, post])
 
     const submit = async(data: postItem) => {
         if (post) {
@@ -78,7 +77,8 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 }
             })
         }
-    }, [watch, slugTransform, setValue, pathname])
+        setValue("content", post?.content)
+    }, [watch, slugTransform, setValue, post, pathname])
 
     return (
         <form onSubmit={handleSubmit(submit)}
