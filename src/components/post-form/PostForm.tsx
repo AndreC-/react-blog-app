@@ -107,7 +107,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 label="Content *"
                 name="content"
                 control={control}
-                defaultValue={getValues("content")}>
+                defaultValue={post?.content}>
                     {errors.content && <p className="text-red-500">{errors.content.message}</p>}
                 </RealTimeEditor>
             </div>
