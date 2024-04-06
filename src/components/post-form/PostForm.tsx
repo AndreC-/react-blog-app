@@ -72,6 +72,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
 
     useEffect(() => {
         if(post){
+            console.log(post.content)
             setValue("title", post.title)
             setValue("content", post.content)
             setValue("status", post.status)
