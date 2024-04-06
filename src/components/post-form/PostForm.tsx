@@ -13,7 +13,7 @@ import { Models } from "appwrite";
 
 
 export default function PostForm({post}:{post: postItem | Models.Document | undefined}){
-    const {register, handleSubmit, watch, setValue, getValues, control, formState:{errors}} = useForm<postItem>({
+    const {register, handleSubmit, watch, setValue, control, formState:{errors}} = useForm<postItem>({
         defaultValues: {
             title: post?.title || "",
             slug: post?.slug || "",
@@ -77,8 +77,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 }
             })
         }
-        setValue("content", post?.content)
-    }, [watch, slugTransform, setValue, post, pathname])
+    }, [watch, slugTransform, setValue, pathname])
 
     return (
         <form onSubmit={handleSubmit(submit)}
@@ -108,7 +107,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 label="Content *"
                 name="content"
                 control={control}
-                defaultValue={getValues("content")}>
+                defaultValue={post?.content}>
                     {errors.content && <p className="text-red-500">{errors.content.message}</p>}
                 </RealTimeEditor>
             </div>
