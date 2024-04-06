@@ -68,18 +68,21 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 }
             })
         }
-    }, [watch, slugTransform, setValue, pathname])
+        if(post){
+            setValue("content", post.content)
+        }
+    }, [watch, slugTransform, setValue, post, pathname])
 
     useEffect(() => {
+        console.log(getValues("content"))
         if(post){
-            console.log(getValues("content"))
             setValue("title", post.title)
-            setValue("content", post.content)
             setValue("content", post.content)
             setValue("status", post.status)
             setValue("slug", post.$id)
         }
-    }, [setValue, getValues, post])
+    }
+    , [setValue, getValues, post])
 
     return (
         <form onSubmit={handleSubmit(submit)}
