@@ -13,7 +13,7 @@ import { Models } from "appwrite";
 
 
 export default function PostForm({post}:{post: postItem | Models.Document | undefined}){
-    const {register, handleSubmit, watch, setValue, control, getValues, formState:{errors}} = useForm<postItem>({
+    const {register, handleSubmit, watch, setValue, control, formState:{errors}} = useForm<postItem>({
         defaultValues: {
             title: post?.title || "",
             slug: post?.slug || "",
