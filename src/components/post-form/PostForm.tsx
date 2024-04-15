@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../Button";
 import Input from "../Input";
@@ -26,16 +26,19 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
     const {pathname} = useLocation()
     const navigate = useNavigate()
     const userData = useSelector((state: RootState) => state.auth.userData)
+    const [postInfo, setPostInfo] = useState(getValues("content"))
 
     useEffect(() => {
         if(post){
+            setPostInfo(getValues("content"))
+            console.log(postInfo)
             setValue("title", post.title)
             setValue("content", post.content)
             setValue("status", post.status)
             setValue("slug", post.$id)
         }
     }
-    , [setValue, post])
+    , [setValue, getValues, postInfo, post])
 
     const submit = async(data: postItem) => {
         if (post) {
@@ -107,7 +110,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 label="Content *"
                 name="content"
                 control={control}
-                defaultValue={getValues("content")}>
+                defaultValue={postInfo}>
                     {errors.content && <p className="text-red-500">{errors.content.message}</p>}
                 </RealTimeEditor>
             </div>
