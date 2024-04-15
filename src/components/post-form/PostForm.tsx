@@ -29,6 +29,7 @@ export default function PostForm({post}:{post: Models.Document | undefined}){
     const userData = useSelector((state: RootState) => state.auth.userData)
 
     useEffect(() => {
+        console.log("render form")
         if(post){
             console.log(getValues("content"))
             setValue("title", post.title)
