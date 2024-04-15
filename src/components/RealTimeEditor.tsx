@@ -22,6 +22,7 @@ export default function RealTimeEditor({children, name, control, label, defaultV
                 <Editor
                 apiKey={conf.tinymceApiKey}
                 initialValue={defaultValue}
+                value={defaultValue}
                 init={{
                     branding: false,
                     height: 500,
