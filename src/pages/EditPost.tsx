@@ -7,7 +7,7 @@ import { Models } from "appwrite"
 
 export default function EditPost(){
 
-    const [post, setPost] = useState<Models.Document>()
+    const [post, setPost] = useState<Models.Document | undefined>()
     const {slug} = useParams()
     const navigate = useNavigate()
 

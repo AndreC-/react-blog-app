@@ -13,7 +13,7 @@ import { Models } from "appwrite";
 import Container from "../container/Container";
 
 
-export default function PostForm({post}:{post: postItem | Models.Document | undefined}){
+export default function PostForm({post}:{post: Models.Document | undefined}){
     const {register, handleSubmit, watch, setValue, getValues, control, formState:{errors}} = useForm<postItem>({
         defaultValues: {
             title: post?.title || "",
@@ -30,13 +30,13 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
 
     useEffect(() => {
         if(post){
+            console.log(getValues("content"))
             setValue("title", post.title)
             setValue("content", post.content)
             setValue("status", post.status)
             setValue("slug", post.$id)
         }
-    }
-    , [setValue, post])
+    })
 
     const submit = async(data: postItem) => {
         if (post) {
@@ -93,7 +93,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
             </Container>
         )
     }
-    
+
     return (
         <form onSubmit={handleSubmit(submit)}
         className="flex flex-wrap"
