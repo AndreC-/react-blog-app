@@ -41,6 +41,10 @@ export default function PostForm({post}:{post: Models.Document | undefined}){
         }
     }, [setValue, getValues, post])
 
+    useEffect(() => {
+        setValue("content", post?.content)
+    }, [setValue, post])
+
     const submit = async(data: postItem) => {
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
