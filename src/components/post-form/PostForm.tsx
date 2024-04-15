@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../Button";
 import Input from "../Input";
@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { postItem } from "../../pages/Post";
 import { Models } from "appwrite";
+import Container from "../container/Container";
 
 
 export default function PostForm({post}:{post: postItem | Models.Document | undefined}){
@@ -26,19 +27,16 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
     const {pathname} = useLocation()
     const navigate = useNavigate()
     const userData = useSelector((state: RootState) => state.auth.userData)
-    const [postInfo, setPostInfo] = useState(getValues("content"))
 
     useEffect(() => {
         if(post){
-            setPostInfo(getValues("content"))
-            console.log(postInfo)
             setValue("title", post.title)
             setValue("content", post.content)
             setValue("status", post.status)
             setValue("slug", post.$id)
         }
     }
-    , [setValue, getValues, postInfo, post])
+    , [setValue, post])
 
     const submit = async(data: postItem) => {
         if (post) {
@@ -82,6 +80,20 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
         }
     }, [watch, slugTransform, setValue, pathname])
 
+    if (post === undefined && pathname !== "/add-post"){
+        return(
+            <Container>
+                <div className="flex flex-wrap justify-center relative top-32">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <h1>Loading blog post</h1>
+                </div>
+            </Container>
+        )
+    }
+    
     return (
         <form onSubmit={handleSubmit(submit)}
         className="flex flex-wrap"
@@ -110,7 +122,7 @@ export default function PostForm({post}:{post: postItem | Models.Document | unde
                 label="Content *"
                 name="content"
                 control={control}
-                defaultValue={postInfo}>
+                defaultValue={getValues("content")}>
                     {errors.content && <p className="text-red-500">{errors.content.message}</p>}
                 </RealTimeEditor>
             </div>
